@@ -3,9 +3,6 @@ class Admin extends CI_Controller
 {
 	function __construct()
 	{
-		if(!isset($this->session->userid)):
-		  $this->logout();
-		endif;
 		parent::__construct();
 	}
 
@@ -45,7 +42,7 @@ class Admin extends CI_Controller
 
 	function logout()
 	{
-		//$this->session->sess_destroy();
-		//redirect("Login/index");
+		$this->session->sess_destroy();
+		redirect("Login/index");
 	}
 }
