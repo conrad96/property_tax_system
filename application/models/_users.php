@@ -11,6 +11,10 @@ class _users extends CI_Model{
 		    	$sql = "SELECT * FROM users u WHERE u.role='user' ";
 				$data['users'] = $this->db->query($sql)->num_rows();
 			break;
+			case 2:
+				$sql = "SELECT * FROM users u ORDER BY u.role ";
+				$data['users'] = $this->db->query($sql)->result();
+			break;
 		}
 		
 		return $data['users'];

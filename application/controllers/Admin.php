@@ -37,6 +37,12 @@ class Admin extends CI_Controller
 		endif;
 	}
 
+	function view_users()
+	{
+		$data['debt_collectors'] = $this->_users->all_users(2);
+		$this->load->view("Admin/all-users",$data);
+	}
+
 	function logout()
 	{
 		//$this->session->sess_destroy();

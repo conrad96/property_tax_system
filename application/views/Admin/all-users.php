@@ -296,42 +296,34 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h3 class="title-1" style="margin-bottom: 25px;">Register Debt Collector</h3>
+                                    <h3 class="title-1" style="margin-bottom: 25px;">Users:</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <form action="<?php echo base_url(); ?>index.php/Admin/add_db" method="POST" role="form" style="padding-left: 20%;">
-                            	<div class="form-group">
-                                    <label>Full Names</label>
-                                    <input class="au-input au-input--full" type="text" name="names" placeholder="Full Names">
+                            <?php 
+                            if(!empty($debt_collectors)):
+
+                                foreach($debt_collectors as $user):
+                                    print '<div class="col-md-4">
+                                <div class="card border border-primary">
+                                    <div class="card-header">
+                                        <strong class="card-title">'.$user->names.'</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                        Names: '.$user->names.'<br />
+                                        Contact: '.$user->contact.'<br />
+                                        Email: '.$user->email.'<br />
+                                        Role: '.$user->role.'
+                                        </p>
+                                    </div>
                                 </div>
-                            	<div class="form-group">
-                                    <label>Username</label>
-                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Username">
-                                </div>
-                                <div class="form-group">
-                                    <label>Contact</label>
-                                    <input class="au-input au-input--full" type="text" name="contact" placeholder="Phone Contact">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password1" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label>Confirm Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password2" placeholder="Confirm Password">
-                                </div>
-                                <input type="hidden" name="role" value="user">
-                                <div class="form-group">
-                                    <label>&nbsp;</label>
-                                     <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Register</button>
-                                </div>
-                            </form>
+                                  </div>';
+                                endforeach;
+
+                            endif;
+                            ?>
                         </div>
 
                         <div class="row">

@@ -72,7 +72,7 @@
                             <a href="<?php echo base_url(); ?>index.php/Admin/register_db"><i class="far fa-check-square"></i>Register Debt Collector</a>
                         </li>
                         <li>
-                            <a href="index2.html"><i class="fas fa-chart-bar"></i>View All Users</a>
+                            <a href="<?php echo base_url(); ?>index.php/Admin/view_users"><i class="fas fa-chart-bar"></i>View All Users</a>
                         </li>
                         <li>
                             <a href="chart.html">
