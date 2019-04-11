@@ -39,7 +39,7 @@
                                                 <i class="zmdi zmdi-account-o"></i>
                                             </div>
                                             <div class="text">
-                                                <h2><?php 0;  ?></h2>
+                                                <h2><?php echo 0;  ?></h2>
                                                 <span>Clients</span>
                                             </div>
                                         </div>
