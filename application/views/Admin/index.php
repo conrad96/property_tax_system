@@ -29,10 +29,10 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                                 <li>
-                                    <a href="index.html">Register Debt Collector</a>
+                                    <a href="<?php echo base_url(); ?>index.php/Admin/register_db">Register Debt Collector</a>
                                 </li>
                                 <li>
-                                    <a href="index2.html">View All Users</a>
+                                    <a href="<?php echo base_url(); ?>index.php/Admin/view_users">View All Users</a>
                                 </li>
                             </ul>
                         </li>
@@ -69,7 +69,7 @@
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="far fa-check-square"></i>Register Debt Collector</a>
+                            <a href="<?php echo base_url(); ?>index.php/Admin/register_db"><i class="far fa-check-square"></i>Register Debt Collector</a>
                         </li>
                         <li>
                             <a href="index2.html"><i class="fas fa-chart-bar"></i>View All Users</a>

@@ -15,5 +15,18 @@ class _users extends CI_Model{
 		
 		return $data['users'];
 	}
+	function add_user($data)
+	{
+		$user = array(
+			"names"=>$data['names'],
+			"contact"=>$data['contact'],
+			"email"=>$data['email'],
+			"role"=>$data['role'],
+			"password"=>$data['password2']
+		);
+
+		$add = $this->db->insert("users",$user);
+		return ($add)? TRUE : FALSE;
+	}
 
 }
