@@ -54,7 +54,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-shopping-cart"></i>
+                                                <i class="zmdi zmdi-home"></i>
                                             </div>
                                             <div class="text">
                                                 <h2><?php echo 0; ?></h2>
@@ -72,7 +72,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-calendar-note"></i>
+                                                <i class="zmdi zmdi-money"></i>
                                             </div>
                                             <div class="text">
                                                 <h2><?php echo 0; ?></h2>
@@ -90,7 +90,7 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="icon">
-                                                <i class="zmdi zmdi-money"></i>
+                                                <i class="zmdi zmdi-calendar-note"></i>
                                             </div>
                                             <div class="text">
                                                 <h2><?php echo 0;?></h2>
