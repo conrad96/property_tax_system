@@ -25,8 +25,23 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
+                            <?php 
+                                if(isset($msg)):
+
+                                    if($msg == 'success'):
+                                        print "<div class='alert alert-success'>
+                                        <i>Property Registered Successfully</i>
+                                        </div>";
+                                    elseif($msg == 'fail'):
+                                        print "<div class='alert alert-danger'>
+                                        <i>Error! Property Not Registered Successfully</i>
+                                        </div>";
+                                    endif;
+
+                                endif;
+                            ?>
                                 <div class="overview-wrap">
-                                    <center><h5 style="text-align: center;">*Please Fill in all Required Fields.</h5></center>
+                                    <center><h6>*Please Fill in all Required Fields.</h6></center>
                                 </div>
                             </div>
                         </div>

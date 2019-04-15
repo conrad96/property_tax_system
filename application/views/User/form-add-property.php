@@ -1,4 +1,4 @@
-<form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/add_new_property">
+<form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/add_new_property" method="POST">
     <center><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
     <div class="form-group">
         <label>Property Title</label>
@@ -353,7 +353,7 @@
     <center><p><strong>BUILDING SPECIFICS</strong></p></center>
     <div class="form-group">
         <label>Photos*</label>
-        <input type="file" name="photos" multiple="multiple" required="required">
+        <input type="file" name="photos" multiple="multiple">
     </div>
     <div class="form-group">
         <label>Enter Number of Levels</label>
@@ -384,11 +384,11 @@
     </div>
     <div class="form-group">
         <label>Number of units</label>
-        <input type="number" name="numberof_units" class="form-control" required="required">
+        <input type="number" name="numberof_units" class="form-control">
     </div>
     <div class="form-group">
         <label>Rent</label>
-        <input type="number" name="rent_amount" required="required" class="form-control">
+        <input type="number" name="rent_amount" class="form-control">
     </div>
     <center><p><strong>SECTION G: ADDED FACILITIES & SERVICES</strong></p></center>
     <div class="form-group">

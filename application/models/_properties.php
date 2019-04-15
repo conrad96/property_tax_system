@@ -23,4 +23,9 @@ class _properties extends CI_Model
 		INNER JOIN property_types pt ON ab.property_type_id = pt.id";
 		return $this->db->query($sql)->result();
 	}
+
+	function add($data)
+	{
+		return ($this->db->insert("registered_properties",$data))? TRUE : FALSE;
+	}
 }

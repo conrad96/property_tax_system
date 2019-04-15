@@ -23,8 +23,21 @@ class User extends CI_Controller
 
 	function add_new_property()
 	{
+		$data = array();
+
 		if(!empty($_POST)):
+
+			$fields = json_encode($_POST);
+			$property = array(
+				"title"=>!empty($_POST['property_title'])? $_POST['property_title'] : 'undefined property',
+				"data"=>$fields,
+				"author"=>$this->session->userid
+			);
 			
+			$add_property = $this->_properties->add($property);
+			$data['msg'] = ($add_property)? 'success' : 'fail';
 		endif;
+
+		$this->load->view("User/add-property",$data);
 	}
 }
