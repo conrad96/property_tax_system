@@ -14,6 +14,17 @@ class User extends CI_Controller
 		endif;
 	}
 
-	
+	function add_property()
+	{
+		$data['property_types'] = $this->_properties->property_types();
+		$data['accomodation_breakdowns'] = $this->_properties->accomodation_breakdown();
+		$this->load->view("User/add-property",$data);
+	}
 
+	function add_new_property()
+	{
+		if(!empty($_POST)):
+			
+		endif;
+	}
 }
