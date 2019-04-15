@@ -1,4 +1,4 @@
-<form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/add_new_property" method="POST">
+<form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/add_new_property" method="POST" enctype="multipart/form-data">
     <center><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
     <div class="form-group">
         <label>Property Title</label>
@@ -353,7 +353,7 @@
     <center><p><strong>BUILDING SPECIFICS</strong></p></center>
     <div class="form-group">
         <label>Photos*</label>
-        <input type="file" name="photos" multiple="multiple">
+        <input type="file" name="photos[]" multiple="multiple">
     </div>
     <div class="form-group">
         <label>Enter Number of Levels</label>
@@ -365,7 +365,7 @@
     </div>
     <div class="form-group">
         <label>Total Built up area M2</label>
-        <input type="file" name="autocad_file" class="form-control">
+        <input type="file" name="autocad_file" class="form-control" >
     </div>
 
     <center><p><strong>SECTION F: ACCOMMODATION</strong></p></center>
