@@ -71,6 +71,7 @@ class User extends CI_Controller
 
 	function all_properties()
 	{
-
+		$data['properties'] = $this->_properties->view();
+		$this->load->view("User/view-property",$data);
 	}
 }

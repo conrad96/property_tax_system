@@ -28,4 +28,10 @@ class _properties extends CI_Model
 	{
 		return ($this->db->insert("registered_properties",$data))? TRUE : FALSE;
 	}
+
+	function view()
+	{
+		$sql = "SELECT u.names as author,rp.* FROM users u INNER JOIN registered_properties rp ON rp.author = u.id ";
+		return $this->db->query($sql)->result();
+	}
 }
