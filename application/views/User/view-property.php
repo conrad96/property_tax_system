@@ -43,29 +43,30 @@
                                         $img = $property_json;
                                         $address = !empty($property_json->village_property) || !empty($property_json->parish_property) || !empty($property_json->division_property)? $property_json->village_property.','.$property_json->parish_property.','.$property_json->division_property : "Location Not Provided";
 
-                                        print '<div class="col-md-4">
-                                                <div class="card">
-                                                        <div class="card-header">
-                                                            <strong class="card-title mb-3">'.$property->title.'</strong>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <div class="mx-auto d-block">
-                                                                <img class="rounded-circle mx-auto d-block" src="'.base_url().'assets/uploads/property_images/'.(!empty($property_json->photos->images)? $property_json->photos->images[0] : "No Photo Available" ).'" style="width: 100px;height: 100px;">
-                                                                <h5 class="text-sm-center mt-2 mb-1">Type: '.$property_json->type_of_company.' </h5>
-                                                                <div class="location text-sm-center">
-                                                                    <i class="fa fa-map-marker"></i>'.$address.'</div>
-                                                            </div>
-                                                            <hr>
-                                                            <div class="card-text ">
-                                                                <ul class="pull-left">
-                                                                    <li>Title: '.$property_json->property_title.'</li>
-                                                                    <li>Owner: '.$property_json->surname_contact.' '.$property_json->firstname_contact.'</li>
-                                                                    <li>Registered By: '.$property->registered_by.' </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </div>';
+print '<div class="col-md-4">
+    <div class="card">
+            <div class="card-header">
+                <a href="'.base_url().'index.php/User/property/'.$property->id.'"><strong class="card-title mb-3">'.$property->title.'
+                </strong></a><i class="fa fa-eye pull-right"></i>
+            </div>
+            <div class="card-body">
+                <div class="mx-auto d-block">
+                    <img class="rounded-circle mx-auto d-block" src="'.base_url().'assets/uploads/property_images/'.(!empty($property_json->photos->images)? $property_json->photos->images[0] : "No Photo Available" ).'" style="width: 100px;height: 100px;">
+                    <h5 class="text-sm-center mt-2 mb-1">Type: '.$property_json->type_of_company.' </h5>
+                    <div class="location text-sm-center">
+                        <i class="fa fa-map-marker"></i>'.$address.'</div>
+                </div>
+                <hr>
+                <div class="card-text ">
+                    <ul class="pull-left">
+                        <li>Title: '.$property_json->property_title.'</li>
+                        <li>Owner: '.$property_json->surname_contact.' '.$property_json->firstname_contact.'</li>
+                        <li>Registered By: '.$property->registered_by.' </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>';
                                     endif;
 
                                 endforeach;

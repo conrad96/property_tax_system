@@ -39,7 +39,7 @@
                                                 <i class="zmdi zmdi-account-o"></i>
                                             </div>
                                             <div class="text">
-                                                <h2><?php echo 0;  ?></h2>
+                                                <h2><?php echo $this->_users->clients(1);  ?></h2>
                                                 <span>Clients</span>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                                 <i class="zmdi zmdi-home"></i>
                                             </div>
                                             <div class="text">
-                                                <h2><?php echo 0; ?></h2>
+                                                <h2><?php echo $this->_properties->properties_counter(); ?></h2>
                                                 <span>Properties</span>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                                 <i class="zmdi zmdi-calendar-note"></i>
                                             </div>
                                             <div class="text">
-                                                <h2><?php echo 0;?></h2>
+                                                <h2><?php echo $this->_properties->records_counter();?></h2>
                                                 <span>Records</span>
                                             </div>
                                         </div>
