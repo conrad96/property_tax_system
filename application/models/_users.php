@@ -33,4 +33,13 @@ class _users extends CI_Model{
 		return ($add)? TRUE : FALSE;
 	}
 
+	function clients($arg=1)
+	{
+		switch($arg)
+		{
+			case 1:
+				return $this->db->get("clients")->num_rows();
+			break;
+		}
+	}
 }

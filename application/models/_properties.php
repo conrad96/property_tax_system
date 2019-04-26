@@ -26,12 +26,40 @@ class _properties extends CI_Model
 
 	function add($data)
 	{
-		return ($this->db->insert("registered_properties",$data))? TRUE : FALSE;
+		if ($this->db->insert("registered_properties",$data)):
+			//add client 
+			if(!empty($data)):
+
+				$content = json_decode($data['data']);
+
+				$clientele = array(
+				"client"=> $content->contact_title.' '.$content->surname_contact.' '.$content->firstname_contact,
+				"physical_address"=> $content->county_owner.' '.$content->district_owner.' '.$content->subcounty_owner.' '.$content->parish_owner.' '.$content->village_owner,
+				"contact"=>$content->mobile_phone,
+				"registered_by"=>$this->session->userid
+			);
+
+				return ($this->db->insert("clients",$clientele))? TRUE : FALSE;
+			endif;
+			
+		else:
+			return FALSE;
+		endif;
 	}
 
 	function view()
 	{
 		$sql = "SELECT u.names as registered_by,rp.* FROM users u INNER JOIN registered_properties rp ON rp.author = u.id ";
 		return $this->db->query($sql)->result();
+	}
+
+	function properties_counter()
+	{
+		return $this->db->get("registered_properties")->num_rows();
+	}
+
+	function records_counter()
+	{
+		return $this->db->get("registered_properties")->num_rows() + $this->db->get("clients")->num_rows() + $this->db->get("property_codes")->num_rows() + $this->db->get("property_types")->num_rows();
 	}
 }
