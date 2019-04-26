@@ -74,4 +74,11 @@ class User extends CI_Controller
 		$data['properties'] = $this->_properties->view();
 		$this->load->view("User/view-property",$data);
 	}
+
+	function property($property_id)
+	{
+		$data['property'] = $this->_properties->get_property($property_id);
+
+		$this->load->view("User/property",$data);
+	}
 }

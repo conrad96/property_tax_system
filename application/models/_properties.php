@@ -62,4 +62,11 @@ class _properties extends CI_Model
 	{
 		return $this->db->get("registered_properties")->num_rows() + $this->db->get("clients")->num_rows() + $this->db->get("property_codes")->num_rows() + $this->db->get("property_types")->num_rows();
 	}
+
+	function get_property($property_id)
+	{
+		$sql = "SELECT * FROM registered_properties rp WHERE rp.id = '".$property_id."' ";
+				
+		return !empty($this->db->query($sql)->result())? $this->db->query($sql)->result() : array() ;
+	}
 }
