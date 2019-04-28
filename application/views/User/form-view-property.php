@@ -3,10 +3,18 @@
 
         foreach($property as $prop):
             $details = json_decode($prop->data);
-            print '<input type="hidden" name="property_id" value="'.$prop->id.'" />';
+            print '<input type="hidden" name="property_id" value="'.$prop->id.'" />'.
+                    '<div class="row">'.
+                        '<div class="col-md-3">'.
+                            '<img src="'.base_url().'assets/images/icon/pdf_icon.jpg" style="width: 90px;height:50px;" title="Export Invoice" class="img img-responsive img-rounded" />'
+                        .'</div>'.
+                        '<div class="col-md-3">'.
+                            '<img src="'.base_url().'assets/images/icon/excel_icon.png" style="width: 90px;height:50px;" title="Export Excel Sheet" class="img img-responsive img-rounded" />'
+                        .'</div>'.
+                    '</div>';
             
 ?>
-    <center><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
+    <center style="padding-top: 50px;"><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
     <div class="form-group">
         <label>Property Title</label>
         <input type="text" name="property_title" class="form-control" value="<?php echo $prop->title; ?>">

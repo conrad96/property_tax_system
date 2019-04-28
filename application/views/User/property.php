@@ -25,6 +25,29 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
+                            <?php 
+                                if(isset($msg)):
+
+                                    if($msg == 'success'):
+                                        print "<div class='alert alert-success'>
+                                        <i>Property Edited Successfully</i>
+                                        </div>";
+                                    elseif($msg == 'fail'):
+                                        print "<div class='alert alert-danger'>
+                                        <i>Error! Property Not Edited</i>
+                                        </div>";
+                                    endif;
+
+                                endif;
+                            ?>
+                                <div class="overview-wrap">
+                                    <center><h6>&nbsp;</h6></center>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <center>&nbsp;</center>
                                 </div>
