@@ -1,7 +1,10 @@
 <form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/edit_property" method="POST" enctype="multipart/form-data">
 <?php if(!empty($property)): 
+
         foreach($property as $prop):
             $details = json_decode($prop->data);
+            print '<input type="hidden" name="property_id" value="'.$prop->id.'" />';
+            
 ?>
     <center><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
     <div class="form-group">
@@ -415,7 +418,13 @@
     <center><p><strong>BUILDING SPECIFICS</strong></p></center>
     <div class="form-group">
         <label>Photos*</label>
-        <input type="file" name="photos[]" multiple="multiple">
+        <input type="file" name="photos[]" multiple="multiple" value="<?php 
+        if (!empty($details->photos->images)):
+            foreach($details->photos->images as $image):
+                echo $image.',';
+            endforeach;
+        endif;
+        ?>">
     </div>
     <div class="form-group">
         <label>Enter Number of Levels</label>
@@ -427,7 +436,11 @@
     </div>
     <div class="form-group">
         <label>Total Built up area M2</label>
-        <input type="file" name="autocad_file" class="form-control" >
+        <input type="file" name="autocad_file" class="form-control" value="<?php 
+        if(!empty($details->autocad_file)):
+            echo $details->autocad_file;
+        endif;
+        ?>">
     </div>
 
     <center><p><strong>SECTION F: ACCOMMODATION</strong></p></center>

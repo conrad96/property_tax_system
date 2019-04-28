@@ -47,6 +47,12 @@ class _properties extends CI_Model
 		endif;
 	}
 
+	function edit($property_id,$data)
+	{
+		$this->db->where("id",$property_id);
+		return $this->db->update("registered_properties",$data)? TRUE : FALSE;
+	}
+
 	function view()
 	{
 		$sql = "SELECT u.names as registered_by,rp.* FROM users u INNER JOIN registered_properties rp ON rp.author = u.id ";
