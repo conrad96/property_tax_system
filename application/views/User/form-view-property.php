@@ -6,10 +6,10 @@
             print '<input type="hidden" name="property_id" value="'.$prop->id.'" />'.
                     '<div class="row">'.
                         '<div class="col-md-3">'.
-                            '<img src="'.base_url().'assets/images/icon/pdf_icon.jpg" style="width: 90px;height:50px;" title="Export Invoice" class="img img-responsive img-rounded" />'
+                            '<a href="'.base_url().'index.php/User/export_invoice/'.$prop->id.'"><img src="'.base_url().'assets/images/icon/pdf_icon.jpg" style="width: 90px;height:50px;" title="Export Invoice" class="img img-responsive img-rounded" />'
                         .'</div>'.
                         '<div class="col-md-3">'.
-                            '<img src="'.base_url().'assets/images/icon/excel_icon.png" style="width: 90px;height:50px;" title="Export Excel Sheet" class="img img-responsive img-rounded" />'
+                            '<a href="'.base_url().'index.php/User/export_excel/'.$prop->id.'"><img src="'.base_url().'assets/images/icon/excel_icon.png" style="width: 90px;height:50px;" title="Export Excel Sheet" class="img img-responsive img-rounded" /></a>'
                         .'</div>'.
                     '</div>';
             
@@ -585,7 +585,7 @@
     </div>
     <div class="form-group">
         <label>&nbsp;</label>
-        <center><button class="btn btn-success btn-lg" type="submit">Finish</button></center>
+        <center><button class="btn btn-success btn-lg" type="submit">SAVE</button></center>
     </div>
     <?php 
     endforeach;
