@@ -40,6 +40,10 @@ class _users extends CI_Model{
 			case 1:
 				return $this->db->get("clients")->num_rows();
 			break;
+			case 2:
+				$sql = "SELECT u.names as author,c.* FROM users u INNER JOIN clients c ON u.id = c.registered_by ";
+				return $this->db->query($sql)->result();
+			break;
 		}
 	}
 }

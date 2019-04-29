@@ -1,5 +1,5 @@
 <head>
-	<?php $this->load->view("dependencies/header-css"); ?>
+    <?php $this->load->view("dependencies/header-css"); ?>
 <title>Debt Collector</title>
 </head>
 
@@ -25,37 +25,41 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                            <?php 
-                                if(isset($msg)):
-
-                                    if($msg == 'success'):
-                                        print "<div class='alert alert-success'>
-                                        <i>Property Edited Successfully</i>
-                                        </div>";
-                                    elseif($msg == 'fail'):
-                                        print "<div class='alert alert-danger'>
-                                        <i>Error! Property Not Edited</i>
-                                        </div>";
-                                    endif;
-
-                                endif;
-                            ?>
+                            
                                 <div class="overview-wrap">
                                     <center><h6>&nbsp;</h6></center>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            <?php 
+                            if(!empty($clients)):
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="overview-wrap">
-                                    <center>&nbsp;</center>
+                                foreach($clients as $user):
+
+                                    print '<div class="col-md-4">
+                                <div class="card border border-primary">
+                                    <div class="card-header">
+                                        <strong class="card-title">'.$user->client.'</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                        <b>Names:</b> '.$user->client.'<br />
+                                        <b>Address:</b> '.implode(',', explode(' ',$user->physical_address)).'<br />
+                                        <b>Contact:</b> '.$user->contact.'<br />
+                                        <b>Registered By:</b> '.$user->author.'<br />
+                                        <b>Date Registered:</b> '.$user->dateadded.'
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                                  </div>';
+                                endforeach;
+
+                            endif;
+                            ?>
                         </div>
-                        <div class="row">
-                        <?php $this->load->view("User/form-view-property"); ?>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">

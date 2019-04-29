@@ -1,9 +1,20 @@
 <form role="form" style="width: 100%" action="<?php echo base_url(); ?>index.php/User/edit_property" method="POST" enctype="multipart/form-data">
 <?php if(!empty($property)): 
+
         foreach($property as $prop):
             $details = json_decode($prop->data);
+            print '<input type="hidden" name="property_id" value="'.$prop->id.'" />'.
+                    '<div class="row">'.
+                        '<div class="col-md-3">'.
+                            '<a href="'.base_url().'index.php/User/export_invoice/'.$prop->id.'"><img src="'.base_url().'assets/images/icon/pdf_icon.jpg" style="width: 90px;height:50px;" title="Export Invoice" class="img img-responsive img-rounded" />'
+                        .'</div>'.
+                        '<div class="col-md-3">'.
+                            '<a href="'.base_url().'index.php/User/export_excel/'.$prop->id.'"><img src="'.base_url().'assets/images/icon/excel_icon.png" style="width: 90px;height:50px;" title="Export Excel Sheet" class="img img-responsive img-rounded" /></a>'
+                        .'</div>'.
+                    '</div>';
+            
 ?>
-    <center><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
+    <center style="padding-top: 50px;"><p><strong>SECTION A: PROPERTY OWNER’S DETAILS</strong></p></center>
     <div class="form-group">
         <label>Property Title</label>
         <input type="text" name="property_title" class="form-control" value="<?php echo $prop->title; ?>">
@@ -415,7 +426,13 @@
     <center><p><strong>BUILDING SPECIFICS</strong></p></center>
     <div class="form-group">
         <label>Photos*</label>
-        <input type="file" name="photos[]" multiple="multiple">
+        <input type="file" name="photos[]" multiple="multiple" value="<?php 
+        if (!empty($details->photos->images)):
+            foreach($details->photos->images as $image):
+                echo $image.',';
+            endforeach;
+        endif;
+        ?>">
     </div>
     <div class="form-group">
         <label>Enter Number of Levels</label>
@@ -427,7 +444,11 @@
     </div>
     <div class="form-group">
         <label>Total Built up area M2</label>
-        <input type="file" name="autocad_file" class="form-control" >
+        <input type="file" name="autocad_file" class="form-control" value="<?php 
+        if(!empty($details->autocad_file)):
+            echo $details->autocad_file;
+        endif;
+        ?>">
     </div>
 
     <center><p><strong>SECTION F: ACCOMMODATION</strong></p></center>
@@ -564,7 +585,7 @@
     </div>
     <div class="form-group">
         <label>&nbsp;</label>
-        <center><button class="btn btn-success btn-lg" type="submit">Finish</button></center>
+        <center><button class="btn btn-success btn-lg" type="submit">SAVE</button></center>
     </div>
     <?php 
     endforeach;
