@@ -25,10 +25,6 @@
                                 <li>
                                     <a href="<?php echo base_url(); ?>index.php/User/all_clients">Clients</a>
                                 </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>index.php/User
-                                        /records">Records</a>
-                                </li>
                             </ul>
                         </li>
                        
