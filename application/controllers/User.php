@@ -152,15 +152,110 @@ class User extends CI_Controller
 	function export_invoice($id)
 	{
 		// get record
-		$data['property'] = $this->_properties->get_property($id);
+		//$data['property'] = $this->_properties->get_property($id);
 
-		/*
+		$html = "
+		<table>
+			<tr>
+				<td>
+					<table cellspacing='3' cellpadding='2'>
+						
+						<tr>
+							<td>
+							<table>
+								<tr>
+									<td>P.O Box 25749</td>
+								</tr>
+								<tr>
+									<td>Kampala</td>
+								</tr>
+								<tr>
+									<td>TIN No. 1000151480</td>
+								</tr>
+							</table>
+							</td>
+							<td>
+								<h3>DEMAND NOTE NOTICE</h3>
+							</td>
+						</tr>
+						<tr><td>&nbsp;</td></tr>
+						<tr>
+							<td>
+							<table border='1' >
+							<tr>
+								<td>Town Clerk</td>
+								<td>0414696923</td>
+							</tr>
+							<tr>
+								<td>Head of Finance</td>
+								<td>0414696718</td>
+							</tr>
+								<tr>
+									<td>Rates Desk</td>
+									<td>0414696719</td>
+								</tr>
+							</table>
+							</td>
+
+							<td colspan='5'>
+								<h5>Date: ".date("d/m/Y")."</h5>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>
+								<table>
+									<tr>
+										<th><strong>Bill to:</strong></th>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td>
+										<table>
+											<tr>
+												<td>Tax Payer:</td>
+												<td>Conrad</td>
+											</tr>
+											<tr>
+												<td>Zone:</td>
+											</tr>
+											<tr>
+												<td>Val No:</td>
+											</tr>
+											<tr>
+												<td>Prom No:</td>
+											</tr>
+											<tr>
+												<td>Description:</td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+				<table>
+					<tr>
+					
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		";
 		//$pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		// set document information
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor($paper[0]['author']);
-		$pdf->SetTitle($paper[0]['title']);
+		$pdf->SetAuthor("Conrad");
+		$pdf->SetTitle("test");
 		$pdf->SetSubject('Objective Paper');
 		$pdf->SetKeywords('Objective, PDF, Export');
 
@@ -196,11 +291,11 @@ class User extends CI_Controller
 		$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 		//$pdf->writeHTMLCell(0, 0, '', '', $layout, 0, 1, 0, true, '', true);
-		$pdf->writeHTML($layout, true, false, true, false, '');
+		$pdf->writeHTML($html, true, false, true, false, '');
 
-		$pdf->Output($paper[0]['title'].'.pdf', 'I');
-		*/
-		$this->load->view("User/view",$data);
+		$pdf->Output('test.pdf', 'I');
+		
+		//$this->load->view("User/view",$data);
 	}
 
 	function all_clients()

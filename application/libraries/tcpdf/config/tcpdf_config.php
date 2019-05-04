@@ -69,7 +69,7 @@
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', base_url().'assets/images/pdf/tcpdf_logo.jpg' );
+define ('PDF_HEADER_LOGO', base_url().'assets/images/icon/logo.png' );
 
 /**
  * Header logo image width in user units.
@@ -104,17 +104,17 @@ define ('PDF_CREATOR', 'Conrad');
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'BRONet');
+define ('PDF_AUTHOR', '');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'BRONet Elearning');
+define ('PDF_HEADER_TITLE', '');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "http://bronetug.com/ ");
+define ('PDF_HEADER_STRING', "KIRA MUNICIPAL COUNCIL" );
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -124,7 +124,7 @@ define ('PDF_UNIT', 'mm');
 /**
  * Header margin.
  */
-define ('PDF_MARGIN_HEADER', 5);
+define ('PDF_MARGIN_HEADER', 10);
 
 /**
  * Footer margin.
@@ -210,7 +210,7 @@ define('K_THAI_TOPCHARS', true);
  * If true allows to call TCPDF methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-define('K_TCPDF_CALLS_IN_HTML', false);
+define('K_TCPDF_CALLS_IN_HTML', true);
 
 /**
  * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
