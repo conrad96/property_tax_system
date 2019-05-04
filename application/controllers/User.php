@@ -243,7 +243,10 @@ class User extends CI_Controller
 				<td>
 				<table>
 					<tr>
-					
+						<td><strong>Date</strong></td>
+						<td><strong>Details</strong></td>
+						<td><strong>Annual</strong></td>
+						<td><strong>Balance</strong></td>
 					</tr>
 				</table>
 				</td>
