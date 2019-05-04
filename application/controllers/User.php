@@ -159,7 +159,21 @@ class User extends CI_Controller
 			<tr>
 				<td>
 					<table cellspacing='3' cellpadding='2'>
-						
+						<tr>
+						<td>&nbsp;</td>
+						<td>
+							<h4>PROPERTY TAX RATES</h4>
+						</td>
+						<td>&nbsp;</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						<td><h6>(Demand Note Invoice Statement)</h6></td>
+						<td>&nbsp;</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
 						<tr>
 							<td>
 							<table>
@@ -173,9 +187,6 @@ class User extends CI_Controller
 									<td>TIN No. 1000151480</td>
 								</tr>
 							</table>
-							</td>
-							<td>
-								<h3>DEMAND NOTE NOTICE</h3>
 							</td>
 						</tr>
 						<tr><td>&nbsp;</td></tr>
@@ -240,12 +251,17 @@ class User extends CI_Controller
 						</tr>
 					</table>
 				</td>
-				<td>
+			</tr>
+			<tr>
+			<td>&nbsp;</td>
+			</tr>
+			<tr>
+			<td>
 				<table>
 					<tr>
 						<td><strong>Date</strong></td>
 						<td><strong>Details</strong></td>
-						<td><strong>Annual</strong></td>
+						<td><strong>Assessment</strong></td>
 						<td><strong>Balance</strong></td>
 					</tr>
 				</table>
