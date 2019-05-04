@@ -152,124 +152,134 @@ class User extends CI_Controller
 	function export_invoice($id)
 	{
 		// get record
-		//$data['property'] = $this->_properties->get_property($id);
+		$property_details = $this->_properties->get_property($id);
 
-		$html = "
-		<table>
-			<tr>
-				<td>
-					<table cellspacing='3' cellpadding='2'>
-						<tr>
-						<td>&nbsp;</td>
-						<td>
-							<h4>PROPERTY TAX RATES</h4>
-						</td>
-						<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td>&nbsp;</td>
-						<td><h6>(Demand Note Invoice Statement)</h6></td>
-						<td>&nbsp;</td>
-						</tr>
-						<tr>
-						<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td>
-							<table>
-								<tr>
-									<td>P.O Box 25749</td>
-								</tr>
-								<tr>
-									<td>Kampala</td>
-								</tr>
-								<tr>
-									<td>TIN No. 1000151480</td>
-								</tr>
-							</table>
-							</td>
-						</tr>
-						<tr><td>&nbsp;</td></tr>
-						<tr>
-							<td>
-							<table border='1' >
+		if(!empty($property_details)):
+			foreach($property_details as $property):
+				$data = json_decode($property->data);
+
+				$html = "
+			<table>
+				<tr>
+					<td>
+						<table cellspacing='3' cellpadding='2'>
 							<tr>
-								<td>Town Clerk</td>
-								<td>0414696923</td>
-							</tr>
-							<tr>
-								<td>Head of Finance</td>
-								<td>0414696718</td>
-							</tr>
-								<tr>
-									<td>Rates Desk</td>
-									<td>0414696719</td>
-								</tr>
-							</table>
-							</td>
-						</tr>
-						<tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>Date: ".date("d/m/Y")."</td>
-						</tr>
-						<tr>
 							<td>&nbsp;</td>
-						</tr>
-						<tr>
 							<td>
+								<h4>PROPERTY TAX RATES</h4>
+							</td>
+							<td>&nbsp;</td>
+							</tr>
+							<tr>
+							<td>&nbsp;</td>
+							<td><h6>(Demand Note Invoice Statement)</h6></td>
+							<td>&nbsp;</td>
+							</tr>
+							<tr>
+							<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
 								<table>
 									<tr>
-										<th><strong>Bill to:</strong></th>
+										<td>P.O Box 25749</td>
 									</tr>
 									<tr>
-										<td>&nbsp;</td>
+										<td>Kampala</td>
 									</tr>
 									<tr>
-										<td>
-										<table>
-											<tr>
-												<td>Tax Payer:</td>
-												<td>Conrad</td>
-											</tr>
-											<tr>
-												<td>Zone:</td>
-											</tr>
-											<tr>
-												<td>Val No:</td>
-											</tr>
-											<tr>
-												<td>Prom No:</td>
-											</tr>
-											<tr>
-												<td>Description:</td>
-											</tr>
-										</table>
-										</td>
+										<td>TIN No: 1000151480</td>
 									</tr>
 								</table>
-							</td>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td></tr>
+							<tr>
+								<td>
+								<table border='1' >
+								<tr>
+									<td>Town Clerk:</td>
+									<td>0414696923</td>
+								</tr>
+								<tr>
+									<td>Head of Finance:</td>
+									<td>0414696718</td>
+								</tr>
+									<tr>
+										<td>Rates Desk:</td>
+										<td>0414696719</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td>Date: ".date("d/m/Y")."</td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<th><strong>Bill to:</strong></th>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td colspan='2'>
+											<table>
+												<tr>
+													<td>Tax Payer:</td>
+													<td>".$data->owner_title.". ".$data->surname_contact." ".$data->firstname_contact."</td>
+												</tr>
+												<tr>
+													<td>Zone:</td>
+													<td>".$data->parish_property.",".$data->village_property."</td>
+												</tr>
+												<tr>
+													<td>Val No:</td>
+													<td>502-0".$property->id."</td>
+												</tr>
+												<tr>
+													<td>Prom No:</td>
+													<td>502-05".$property->id."</td>
+												</tr>
+												<tr>
+													<td>Description:</td>
+													<td>".$data->property_type."</td>
+												</tr>
+											</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+				<td>&nbsp;</td>
+				</tr>
+				<tr>
+				<td>
+					<table>
+						<tr>
+							<td><strong>Date</strong></td>
+							<td><strong>Details</strong></td>
+							<td><strong>Assessment</strong></td>
+							<td><strong>Balance</strong></td>
 						</tr>
 					</table>
-				</td>
-			</tr>
-			<tr>
-			<td>&nbsp;</td>
-			</tr>
-			<tr>
-			<td>
-				<table>
-					<tr>
-						<td><strong>Date</strong></td>
-						<td><strong>Details</strong></td>
-						<td><strong>Assessment</strong></td>
-						<td><strong>Balance</strong></td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-		</table>
-		";
+					</td>
+				</tr>
+			</table>
+			";
+			endforeach;
+			
 		//$pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		// set document information
@@ -315,7 +325,7 @@ class User extends CI_Controller
 
 		$pdf->Output('test.pdf', 'I');
 		
-		//$this->load->view("User/view",$data);
+		endif;
 	}
 
 	function all_clients()

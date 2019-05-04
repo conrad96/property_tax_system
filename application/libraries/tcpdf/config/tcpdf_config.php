@@ -74,7 +74,7 @@ define ('PDF_HEADER_LOGO', base_url().'assets/images/icon/logo.png' );
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 5);
+define ('PDF_HEADER_LOGO_WIDTH', 8);
 
 /**
  * Cache directory for temporary files (full path).
@@ -109,12 +109,12 @@ define ('PDF_AUTHOR', '');
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', '');
+define ('PDF_HEADER_TITLE', 'KIRA MUNICIPAL COUNCIL');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "KIRA MUNICIPAL COUNCIL" );
+define ('PDF_HEADER_STRING', "(Invoice)" );
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -124,7 +124,7 @@ define ('PDF_UNIT', 'mm');
 /**
  * Header margin.
  */
-define ('PDF_MARGIN_HEADER', 10);
+define ('PDF_MARGIN_HEADER', 5);
 
 /**
  * Footer margin.
