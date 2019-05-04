@@ -207,10 +207,11 @@ class User extends CI_Controller
 								</tr>
 							</table>
 							</td>
-
-							<td colspan='5'>
-								<h5>Date: ".date("d/m/Y")."</h5>
-							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>Date: ".date("d/m/Y")."</td>
 						</tr>
 						<tr>
 							<td>&nbsp;</td>
