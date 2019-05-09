@@ -238,7 +238,7 @@ class User extends CI_Controller
 												</tr>
 												<tr>
 													<td>Zone:</td>
-													<td>".$data->parish_property.",".$data->village_property."</td>
+													<td>".(!empty($data->parish_property) || !empty($data->village_property)? $data->parish_property.','.$data->village_property : "Not provided."  )."</td>
 												</tr>
 												<tr>
 													<td>Val No:</td>
@@ -273,6 +273,24 @@ class User extends CI_Controller
 							<td><strong>Assessment</strong></td>
 							<td><strong>Balance</strong></td>
 						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>";
+						//logic to calculate taxes
+						if(!empty($data->numberof_units) && !empty($data->rent_amount)):
+							$rentper_unit = $data->rent_amount;
+							$annual = 12 * $rentper_unit;
+							$ratable = (80/100) * $annual;
+							$tax = (4/100) * $ratable;
+
+
+							$html .= "<tr>
+									<td>".$property->dateadded."</td>
+									<td></td>
+									</tr>";
+						endif;
+
+			$html .="
 					</table>
 					</td>
 				</tr>
