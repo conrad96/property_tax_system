@@ -18,6 +18,9 @@
                         <li>
                             <a href="<?php echo base_url(); ?>index.php/User/all_properties"><i class="fa fa-home"></i>View All Properties</a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url(); ?>index.php/User/deposit"><i class="fa fa-dollar"></i>Deposits</a>
+                        </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fa fa-group"></i>Extra</a>

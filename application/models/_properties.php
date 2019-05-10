@@ -75,4 +75,12 @@ class _properties extends CI_Model
 				
 		return !empty($this->db->query($sql)->result())? $this->db->query($sql)->result() : array() ;
 	}
+
+	function deposit($data=array())
+	{
+		if(!empty($data)):
+
+			return $this->db->insert("deposits",$data) ? TRUE : FALSE;
+		endif;
+	}
 }

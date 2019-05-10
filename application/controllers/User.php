@@ -351,4 +351,23 @@ class User extends CI_Controller
 		$data['clients'] = $this->_users->clients(2);
 		$this->load->view("User/clients",$data);
 	}
+
+	function deposit()
+	{
+		$data['properties'] = $this->_properties->view();
+		if(!empty($_POST)):
+			//save deposit entrys
+			$deposit = array(
+				"property_id" =>$this->input->post("property_id"),
+				"amount" => $this->input->post("deposit_amount"),
+				"financial_year" =>$this->input->post("financial_year"),
+				"author" =>$this->session->userid,
+				"details" =>$this->input->post("details")
+			);
+
+			$data['msg'] = ($this->_properties->deposit($deposit))? TRUE : FALSE;
+			
+		endif;
+		$this->load->view("User/deposit",$data);
+	}
 }
