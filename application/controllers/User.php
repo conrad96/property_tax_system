@@ -283,11 +283,22 @@ class User extends CI_Controller
 							$ratable = (80/100) * $annual;
 							$tax = (4/100) * $ratable;
 
+							//get deposited amount
+							$deposited = $this->db->query("SELECT dp.amount as deposit,u.names as registered_by,dp.details,dp.dateadded FROM deposits dp INNER JOIN registered_properties rp INNER JOIN users u ON u.id = dp.author WHERE rp.id = '".$property->id."' ")->result();	
 
-							$html .= "<tr>
-									<td>".$property->dateadded."</td>
-									<td></td>
+							if(!empty($deposited)):
+
+								foreach($deposited as $deposit):
+
+									$html .= "<tr>
+									<td>".$deposit->dateadded."</td>
+									<td>".$deposit->details."</td>
+									<td>".$ratable."</td>
+									<td>".($ratable - $deposit->amount)."</td>
 									</tr>";
+								endforeach;
+							endif;
+
 						endif;
 
 			$html .="
@@ -366,7 +377,7 @@ class User extends CI_Controller
 			);
 
 			$data['msg'] = ($this->_properties->deposit($deposit))? TRUE : FALSE;
-			
+
 		endif;
 		$this->load->view("User/deposit",$data);
 	}
