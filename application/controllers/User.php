@@ -153,13 +153,14 @@ class User extends CI_Controller
 	{
 		// get record
 		$property_details = $this->_properties->get_property($id);
+		$doc_title = "";
 
 		if(!empty($property_details)):
 			foreach($property_details as $property):
 				$data = json_decode($property->data);
+				$doc_title = $property->title;
 
-				$html = "
-			<table>
+				$html = "<table>
 				<tr>
 					<td>
 						<table cellspacing='3' cellpadding='2'>
@@ -212,6 +213,9 @@ class User extends CI_Controller
 								</table>
 								</td>
 							</tr>
+							";
+
+						$html .= " 
 							<tr>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
@@ -220,7 +224,10 @@ class User extends CI_Controller
 							<tr>
 								<td>&nbsp;</td>
 							</tr>
-							<tr>
+							";
+
+						$html .= "
+						<tr>
 								<td>
 									<table>
 										<tr>
@@ -264,9 +271,12 @@ class User extends CI_Controller
 				<tr>
 				<td>&nbsp;</td>
 				</tr>
+				";
+
+				$html .= "
 				<tr>
 				<td>
-					<table>
+					<table border='1.0' cellspacing='5'>
 						<tr>
 							<td><strong>Date</strong></td>
 							<td><strong>Details</strong></td>
@@ -275,11 +285,13 @@ class User extends CI_Controller
 						</tr>
 						<tr>
 						<td>&nbsp;</td>
-						</tr>";
+						</tr>
+						";
+
 						//logic to calculate taxes
 						if(!empty($data->numberof_units) && !empty($data->rent_amount)):
 							$rentper_unit = $data->rent_amount;
-							$annual = 12 * $rentper_unit;
+							$annual = 12 * $rentper_unit * $data->numberof_units;
 							$ratable = (80/100) * $annual;
 							$tax = (4/100) * $ratable;
 
@@ -290,23 +302,27 @@ class User extends CI_Controller
 
 								foreach($deposited as $deposit):
 
-									$html .= "<tr>
+									$html .= "
+									<tr>
 									<td>".$deposit->dateadded."</td>
-									<td>".$deposit->details."</td>
+									<td colspan='2'>".$deposit->details."</td>
 									<td>".$ratable."</td>
-									<td>".($ratable - $deposit->amount)."</td>
-									</tr>";
+									<td>".($ratable - $deposit->deposit)."</td>
+									</tr>
+									";
+
 								endforeach;
 							endif;
 
 						endif;
 
-			$html .="
-					</table>
-					</td>
-				</tr>
-			</table>
-			";
+				$html .= "
+						</table>
+						</td>
+					</tr>
+				</table>
+				";
+
 			endforeach;
 			
 		//$pdf = new PDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -314,9 +330,9 @@ class User extends CI_Controller
 		// set document information
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor("Conrad");
-		$pdf->SetTitle("test");
-		$pdf->SetSubject('Objective Paper');
-		$pdf->SetKeywords('Objective, PDF, Export');
+		$pdf->SetTitle($doc_title);
+		$pdf->SetSubject('Invoice');
+		$pdf->SetKeywords('Invoice, PDF, Export');
 
 		// set default header data
 		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -350,9 +366,9 @@ class User extends CI_Controller
 		$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 		//$pdf->writeHTMLCell(0, 0, '', '', $layout, 0, 1, 0, true, '', true);
-		$pdf->writeHTML($html, true, false, true, false, '');
+		$pdf->writeHTML($html, true, false, false, false, '');
 
-		$pdf->Output('test.pdf', 'I');
+		$pdf->Output($doc_title.'.pdf', 'I');
 		
 		endif;
 	}
