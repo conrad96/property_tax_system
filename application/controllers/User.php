@@ -158,7 +158,7 @@ class User extends CI_Controller
 		if(!empty($property_details)):
 			foreach($property_details as $property):
 				$data = json_decode($property->data);
-				$doc_title = $property->title;
+				$doc_title = str_replace(' ','_',$property->title);
 
 				$html = "<table>
 				<tr>
