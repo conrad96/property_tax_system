@@ -373,6 +373,84 @@ class User extends CI_Controller
 		endif;
 	}
 
+	function export_excel($id)
+	{
+		$this->load->library("PHPExcel");
+
+		$property_details = $this->_properties->get_property($id);
+		$doc_title = "";
+
+		if(!empty($property_details)):
+
+			// Create new PHPExcel object
+			$objPHPExcel = new PHPExcel();
+
+			// Set document properties
+			$objPHPExcel->getProperties()->setCreator("Conrad")
+										->setLastModifiedBy("Conrad")
+										->setTitle("Property Invoice Export")
+										->setSubject("Property Sheet")
+										->setDescription("Export Property Details")
+										->setKeywords("Excel Sheet")
+										->setCategory("Conrad");
+
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+
+			// Add column headers
+			$objPHPExcel->getActiveSheet()
+						->setCellValue('A1', 'Property')
+						->setCellValue('A2', 'Owner')
+						->setCellValue('A3', 'Zone')
+						->setCellValue('A4', 'Description')
+						->setCellValue('A5', 'Val No.');
+
+			$objPHPExcel->getActiveSheet()->mergeCells("A6:B6");
+			$objPHPExcel->getActiveSheet()->setCellValue("A6","PROPERTY DETAILS");			
+
+			$bold_cell_style = array('fill' =>
+													array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
+														array('rgb' => 'FFFF99'))
+									);
+
+			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->applyFromArray($bold_cell_style);
+			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->getFont()->setBold(true);
+
+			$objPHPExcel->getActiveSheet()->getStyle('A6:B6')->applyFromArray($bold_cell_style);
+			$objPHPExcel->getActiveSheet()->getStyle("A6:B6")->getFont()->setBold(true);
+
+			foreach($property_details as $property):
+				$doc_title = $property->title;
+				$data = json_decode($property->data);
+
+				$objPHPExcel->getActiveSheet()->setCellValue('B1',$property->title)
+											  ->setCellValue('B2',$data->surname_contact.' '.$data->firstname_contact)
+											  ->setCellValue('B3',(!empty($data->parish_property) || !empty($data->village_property)? $data->parish_property.','.$data->village_property : "Not provided."  ))
+											  ->setCellValue('B4',$data->property_type)
+											  ->setCellValue('B5','502-0'.$property->id);
+											  
+				//write properties attributes and values to active sheet
+
+
+			endforeach;
+
+			// Set worksheet title
+			$objPHPExcel->getActiveSheet()->setTitle($doc_title);
+
+			// Redirect output to a client’s web browser (Excel5)
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename="' . $doc_title . '.xls"');
+			header('Cache-Control: max-age=0');
+
+			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+			$objWriter->save('php://output');
+
+		endif;
+	}
+
 	function all_clients()
 	{
 		$data['clients'] = $this->_users->clients(2);
