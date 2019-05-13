@@ -379,6 +379,7 @@ class User extends CI_Controller
 
 		$property_details = $this->_properties->get_property($id);
 		$doc_title = "";
+		$i = 8;
 
 		if(!empty($property_details)):
 
@@ -408,8 +409,8 @@ class User extends CI_Controller
 						->setCellValue('A4', 'Description')
 						->setCellValue('A5', 'Val No.');
 
-			$objPHPExcel->getActiveSheet()->mergeCells("A6:B6");
-			$objPHPExcel->getActiveSheet()->setCellValue("A6","PROPERTY DETAILS");			
+			$objPHPExcel->getActiveSheet()->mergeCells("A7:B7");
+			$objPHPExcel->getActiveSheet()->setCellValue("A7","PROPERTY DETAILS");			
 
 			$bold_cell_style = array('fill' =>
 													array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
@@ -419,22 +420,39 @@ class User extends CI_Controller
 			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->applyFromArray($bold_cell_style);
 			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->getFont()->setBold(true);
 
-			$objPHPExcel->getActiveSheet()->getStyle('A6:B6')->applyFromArray($bold_cell_style);
-			$objPHPExcel->getActiveSheet()->getStyle("A6:B6")->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('A7:B7')->applyFromArray($bold_cell_style);
+			$objPHPExcel->getActiveSheet()->getStyle("A7:B7")->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle("A7:B7")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			//set properties attributes
 
 			foreach($property_details as $property):
 				$doc_title = $property->title;
 				$data = json_decode($property->data);
 
-				$objPHPExcel->getActiveSheet()->setCellValue('B1',$property->title)
-											  ->setCellValue('B2',$data->surname_contact.' '.$data->firstname_contact)
-											  ->setCellValue('B3',(!empty($data->parish_property) || !empty($data->village_property)? $data->parish_property.','.$data->village_property : "Not provided."  ))
-											  ->setCellValue('B4',$data->property_type)
-											  ->setCellValue('B5','502-0'.$property->id);
-											  
+				if(!empty($data)):
+					$objPHPExcel->getActiveSheet()->setCellValue('B1',$property->title)
+												  ->setCellValue('B2',$data->surname_contact.' '.$data->firstname_contact)
+												  ->setCellValue('B3',(!empty($data->parish_property) || !empty($data->village_property)? $data->parish_property.','.$data->village_property : "Not provided."  ))
+												  ->setCellValue('B4',$data->property_type)
+												  ->setCellValue('B5','502-0'.$property->id);
+
 				//write properties attributes and values to active sheet
+					
+					foreach($data as $key=>$value):
 
+						$objPHPExcel->getActiveSheet()->setCellValue("A".$i,$key);
+						$objPHPExcel->getActiveSheet()->setCellValue("B".$i,$value);
+						
+						$i++;
+					endforeach;
 
+				endif;
+
+				$objPHPExcel->getActiveSheet()->getStyle('A8:A'.$i)->applyFromArray(
+					array('fill' =>array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
+														array('rgb' => '99FFFF'))
+									));
+									  
 			endforeach;
 
 			// Set worksheet title
