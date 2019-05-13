@@ -400,6 +400,10 @@ class User extends CI_Controller
 
 			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
 			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
 
 			// Add column headers
 			$objPHPExcel->getActiveSheet()
@@ -410,19 +414,50 @@ class User extends CI_Controller
 						->setCellValue('A5', 'Val No.');
 
 			$objPHPExcel->getActiveSheet()->mergeCells("A7:B7");
-			$objPHPExcel->getActiveSheet()->setCellValue("A7","PROPERTY DETAILS");			
+			$objPHPExcel->getActiveSheet()->mergeCells("D7:G7");
+			$objPHPExcel->getActiveSheet()->mergeCells("D14:E14");
+
+			$objPHPExcel->getActiveSheet()->setCellValue("A7","PROPERTY DETAILS");
+			$objPHPExcel->getActiveSheet()->setCellValue("D7","PROPERTY TAXES");
+			//property taxes fields
+			$objPHPExcel->getActiveSheet()->setCellValue("D8","Rent Amount")
+										  ->setCellValue("D9","Number of Units")
+										  ->setCellValue("D10","Annual Total Rent")
+										  ->setCellValue("D11","Taxable")
+										  ->setCellValue("D12","Tax")
+										  ->setCellValue("D14","Deposits")
+										  ->setCellValue("D15","Date")
+										  ->setCellValue("E15","Details")
+										  ->setCellValue("F15","Assessment")
+										  ->setCellValue("G15","Deposit(Ugx)")
+										  ->setCellValue("H15","Balance");										  
+
 
 			$bold_cell_style = array('fill' =>
 													array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
 														array('rgb' => 'FFFF99'))
 									);
 
+			$taxes_cell_style = array('fill' =>
+													array('type' => PHPExcel_Style_Fill::FILL_SOLID, 'color' =>
+														array('rgb' => '0080FF')),
+									  'borders' => array(
+								            'allborders' => array(
+								                'style' => PHPExcel_Style_Border::BORDER_THIN,
+								                'color' => array('rgb' => 'OOOOOO')
+								            ))
+									);
+
+
 			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->applyFromArray($bold_cell_style);
 			$objPHPExcel->getActiveSheet()->getStyle('A1:A5')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->getStyle('D7:H20')->applyFromArray($taxes_cell_style);
 
 			$objPHPExcel->getActiveSheet()->getStyle('A7:B7')->applyFromArray($bold_cell_style);
 			$objPHPExcel->getActiveSheet()->getStyle("A7:B7")->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->getStyle("A7:B7")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle("D7:G7")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle("D14:E14")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 			//set properties attributes
 
 			foreach($property_details as $property):
@@ -455,6 +490,40 @@ class User extends CI_Controller
 						
 						$i++;
 					endforeach;
+
+					if(!empty($data->rent_amount) && !empty($data->numberof_units)):
+
+						$rentper_unit = !empty($data->rent_amount)? $data->rent_amount : 0;
+						$units = !empty($data->numberof_units)? $data->numberof_units : 0;
+						$annual = 12 * $rentper_unit * $units;
+						$ratable = (80/100) * $annual;
+						$tax = (4/100) * $ratable;
+
+						//get deposited amount
+						$deposited = $this->db->query("SELECT dp.amount as deposit,u.names as registered_by,dp.details,dp.dateadded FROM deposits dp INNER JOIN registered_properties rp INNER JOIN users u ON u.id = dp.author WHERE rp.id = '".$property->id."' ")->result();	
+
+						$objPHPExcel->getActiveSheet()->setCellValue("E8",$rentper_unit)
+															  ->setCellValue("E9",$units)
+															  ->setCellValue("E10",$annual)
+															  ->setCellValue("E11",$ratable)
+															  ->setCellValue("E12",$tax);
+
+						if(!empty($deposited)):
+							$k = 16;
+	
+							foreach($deposited as $deposit):
+								
+								$objPHPExcel->getActiveSheet()->setCellValue("D".$k,$deposit->dateadded)
+															  ->setCellValue("E".$k,$deposit->details)
+															  ->setCellValue("F".$k,$ratable)
+															  ->setCellValue("G".$k,$deposit->deposit)
+															  ->setCellValue("H".$k,($ratable - $deposit->deposit));
+
+								$k++;
+							endforeach;
+						endif;
+
+					endif;
 
 				endif;
 
