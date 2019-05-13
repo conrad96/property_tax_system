@@ -440,8 +440,18 @@ class User extends CI_Controller
 					
 					foreach($data as $key=>$value):
 
-						$objPHPExcel->getActiveSheet()->setCellValue("A".$i,$key);
-						$objPHPExcel->getActiveSheet()->setCellValue("B".$i,$value);
+						if(is_object($value)):
+
+							foreach($value as $other):
+								$str = implode(',', $other);
+								$objPHPExcel->getActiveSheet()->setCellValue("A".$i,$key)
+													  ->setCellValue("B".$i,$str);
+							endforeach;
+							
+						else:
+							$objPHPExcel->getActiveSheet()->setCellValue("A".$i,$key)
+													  ->setCellValue("B".$i,$value);
+						endif;
 						
 						$i++;
 					endforeach;
